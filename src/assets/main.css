@@ -1,0 +1,24 @@
+@import './base.css';
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.05);
+    -webkit-appearance: none;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    width: 4px;
+    height: 4px;
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+  
+  ::-webkit-scrollbar-button,
+  ::-webkit-scrollbar-corner,
+  ::-webkit-scrollbar-track,
+  ::-webkit-scrollbar-track-piece {
+    display: none;
+    background: 0 0;
+  }
