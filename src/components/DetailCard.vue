@@ -124,6 +124,7 @@ const handleToArcade = (arcade_id: number) => {
     <div class="card-container town_block" v-else>
       <h3>{{ province.name }} - {{ city.name }}</h3>
       <p>当前城市共有 {{ total }} 人在出勤</p>
+      <span>点击机厅名称即可查看详情</span>
       <div class="content">
         <n-table :bordered="false" :single-line="false" v-if="arcades.length > 0">
         <thead>
@@ -210,6 +211,10 @@ const handleToArcade = (arcade_id: number) => {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  span {
+    font-size: 14px;
+    color: #999;
+  }
   .mobile {
     display: none;
   }
@@ -238,6 +243,7 @@ const handleToArcade = (arcade_id: number) => {
       margin: 0;
       align-self: center;
     }
+
   }
   .content {
     margin-top: 20px;
