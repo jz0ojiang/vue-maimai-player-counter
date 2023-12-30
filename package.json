@@ -20,7 +20,8 @@
     "unplugin-auto-import": "^0.17.3",
     "unplugin-vue-components": "^0.26.0",
     "vue": "^3.3.11",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.2.5",
+    "vue-turnstile": "^1.0.6"
   },
   "devDependencies": {
     "@tsconfig/node18": "^18.2.2",

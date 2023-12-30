@@ -35,6 +35,9 @@ dependencies:
   vue-router:
     specifier: ^4.2.5
     version: 4.2.5(vue@3.3.13)
+  vue-turnstile:
+    specifier: ^1.0.6
+    version: 1.0.6(vue@3.3.13)
 
 devDependencies:
   '@tsconfig/node18':
@@ -2076,6 +2079,14 @@ packages:
       semver: 7.5.4
       typescript: 5.3.3
     dev: true
+
+  /vue-turnstile@1.0.6(vue@3.3.13):
+    resolution: {integrity: sha512-1ccmDvZEq7GYGNdO68VOfWBhZ3j8pTGNc07M2vGxKvkC8q0ZVd+fxoXPsBDpZFMbVXRu9MxScpJYuiJEoFgD1Q==}
+    peerDependencies:
+      vue: ^3.2.45
+    dependencies:
+      vue: 3.3.13(typescript@5.3.3)
+    dev: false
 
   /vue@3.3.13(typescript@5.3.3):
     resolution: {integrity: sha512-LDnUpQvDgsfc0u/YgtAgTMXJlJQqjkxW1PVcOnJA5cshPleULDjHi7U45pl2VJYazSSvLH8UKcid/kzH8I0a0Q==}

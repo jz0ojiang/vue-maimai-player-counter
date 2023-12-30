@@ -7,7 +7,8 @@ import axios from "axios";
 import { watch, ref, onMounted } from "vue";
 import { useMessage } from "naive-ui";
 import { useRouter } from "vue-router";
-import VueHcaptcha from '@hcaptcha/vue3-hcaptcha';
+// import VueHcaptcha from '@hcaptcha/vue3-hcaptcha';
+import VueTurnstile from 'vue-turnstile';
 
 const route = useRouter();
 
@@ -286,7 +287,8 @@ presetquery()
         <var-counter :min="0" :max="100" v-model="currentCount" :disabled="selectArcade == '请选择机厅'" />
       </div>
       <div class="item captcha">
-        <VueHcaptcha sitekey="acb5012b-2eb7-4993-955e-e111ec98e19c" @verify="handleCaptcha" />
+        <!-- <VueHcaptcha sitekey="acb5012b-2eb7-4993-955e-e111ec98e19c" @verify="handleCaptcha" /> -->
+        <vue-turnstile site-key="0x4AAAAAAAPONBt1HMuGLBvw" v-model="currentToken" />
       </div>
       <div class="item">
         <div class="btn">
