@@ -1,71 +1,76 @@
 <script setup lang="ts">
-import btnSearchSubmit from '@/assets/btn_search_submit.png'
-import titleMpc from '@/assets/title_mpc.png'
-import mpcUpdateBtn from '@/assets/mpc_update_btn.png'
+import btnSearchSubmit from "@/assets/btn_search_submit.png";
+import titleMpc from "@/assets/title_mpc.png";
+import mpcUpdateBtn from "@/assets/mpc_update_btn.png";
 
-import axios from 'axios'
-import { watch, ref, onMounted } from 'vue';
-import { useMessage } from 'naive-ui'
-import { useRouter } from 'vue-router';
+import axios from "axios";
+import { watch, ref, onMounted } from "vue";
+import { useMessage } from "naive-ui";
+import { useRouter } from "vue-router";
+import ReigonNotify from "./ReigonNotify.vue";
 
-const route = useRouter()
+const route = useRouter();
 
-const message = useMessage()
+const message = useMessage();
 
-const provinces = ref([] as any[])
-const cities = ref([] as any[])
+const provinces = ref([] as any[]);
+const cities = ref([] as any[]);
 
-const selectProvince = ref('请选择省份')
-const selectCity = ref('请选择城市')
+const selectProvince = ref("请选择省份");
+const selectCity = ref("请选择城市");
 
 const handleSearch = () => {
-  if (selectProvince.value == '请选择省份') {
-    message.warning("请选择省份")
-    return
+  if (selectProvince.value == "请选择省份") {
+    message.warning("请选择省份");
+    return;
   }
-  if (selectCity.value == '请选择城市') {
-    message.warning('请选择城市')
-    return
+  if (selectCity.value == "请选择城市") {
+    message.warning("请选择城市");
+    return;
   }
+  localStorage.setItem("province", selectProvince.value);
+  localStorage.setItem("city", selectCity.value);
   route.push({
-    path: '/city/' + selectCity.value
-  })
-}
+    path: "/city/" + selectCity.value,
+  });
+};
 
 const getCityList = () => {
-  axios.get(`https://mpc.im0o.cn/getCityList/${selectProvince.value}`).then(res => {
-    for (const item of res.data.data) {
-      cities.value.push({
-        label: item.name,
-        value: item.code
-      })
-    }
-  })
-}
+  axios
+    .get(`https://mpc.im0o.cn/getCityList/${selectProvince.value}`)
+    .then((res) => {
+      for (const item of res.data.data) {
+        cities.value.push({
+          label: item.name,
+          value: item.code,
+        });
+      }
+    });
+};
 
 onMounted(async () => {
-  const { data } = await axios.get('https://mpc.im0o.cn/getProvinceList')
+  const { data } = await axios.get("https://mpc.im0o.cn/getProvinceList");
   for (const item of data.data) {
     provinces.value.push({
       label: item.name,
-      value: item.code
-    })
+      value: item.code,
+    });
   }
-})
+});
 
 watch(selectProvince, () => {
-  selectCity.value = '请选择城市'
-  cities.value = []
-  getCityList()
-})
+  selectCity.value = "请选择城市";
+  cities.value = [];
+  getCityList();
+});
 
 const handleToUpdate = () => {
-  route.push('/update')
-}
-
+  route.push("/update");
+};
 </script>
 
 <template>
+  <reigon-notify />
   <div class="title">
     <img :src="titleMpc" draggable="false" />
   </div>
@@ -74,34 +79,62 @@ const handleToUpdate = () => {
     <div class="content">
       <div class="pc item">
         <p>省份</p>
-        <n-select v-model:value="selectProvince" :options="provinces" size="small" />
+        <n-select
+          v-model:value="selectProvince"
+          :options="provinces"
+          size="small"
+        />
       </div>
       <div class="pc item">
         <p>城市</p>
-        <n-select v-model:value="selectCity" :options="cities" size="small" :disabled="selectProvince == '请选择省份'" />
+        <n-select
+          v-model:value="selectCity"
+          :options="cities"
+          size="small"
+          :disabled="selectProvince == '请选择省份'"
+        />
       </div>
 
       <div class="mobile item">
-        <var-select variant="outlined" placeholder="请选择省份" v-model="selectProvince" size="small">
-          <var-option v-for="province in provinces" :label="province.label" :value="province.value" />
+        <var-select
+          variant="outlined"
+          placeholder="请选择省份"
+          v-model="selectProvince"
+          size="small"
+        >
+          <var-option
+            v-for="province in provinces"
+            :label="province.label"
+            :value="province.value"
+          />
         </var-select>
       </div>
       <div class="mobile item">
-        <var-select variant="outlined" placeholder="请选择城市" v-model="selectCity" size="small" :disabled="selectProvince == '请选择省份'">
-          <var-option v-for="city in cities" :label="city.label" :value="city.value" />
+        <var-select
+          variant="outlined"
+          placeholder="请选择城市"
+          v-model="selectCity"
+          size="small"
+          :disabled="selectProvince == '请选择省份'"
+        >
+          <var-option
+            v-for="city in cities"
+            :label="city.label"
+            :value="city.value"
+          />
         </var-select>
       </div>
       <div class="item">
         <div class="btn">
           <div @click="handleSearch">
-            <img :src="btnSearchSubmit" alt="" draggable="false">
+            <img :src="btnSearchSubmit" alt="" draggable="false" />
           </div>
         </div>
       </div>
     </div>
   </div>
   <div class="mpc_update_btn">
-    <img :src="mpcUpdateBtn" alt="" @click="handleToUpdate">
+    <img :src="mpcUpdateBtn" alt="" @click="handleToUpdate" />
   </div>
 </template>
 
@@ -136,13 +169,14 @@ const handleToUpdate = () => {
 }
 
 .town_block {
-	background: #fff url(/back_town_01.png) bottom no-repeat;
-	background-size: 485px;
-	box-shadow: 1px 3px 0px rgba(0, 0, 0, 0.4);
-	border-radius: 5px;
+  background: #fff url(/back_town_01.png) bottom no-repeat;
+  background-size: 485px;
+  box-shadow: 1px 3px 0px rgba(0, 0, 0, 0.4);
+  border-radius: 5px;
 }
 .card-container {
-  box-shadow: 0 0 0 2px #2e94f4, 0 0 0 6px #fff, 1px 8px 8px rgba(0, 0, 0, 0.2), 0 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 0 2px #2e94f4, 0 0 0 6px #fff, 1px 8px 8px rgba(0, 0, 0, 0.2),
+    0 12px rgba(0, 0, 0, 0.2);
   background-color: #fff;
   border-radius: 10px;
   min-width: 400px;

@@ -1,31 +1,68 @@
+<script lang="ts" setup>
+import Busuanzi from './busuanzi.vue';
+import line02 from '@/assets/line_02.png';
+
+</script>
 <template>
-  <div class="footer">
+  <img :src="line02" alt="line" />
+  <div class="footer card-container town-block">
     <p>"maimai DX"及舞萌DX图标素材属于舞萌DX</p>
     <p>（世嘉互动有限公司），仅用于展示和非商业目的使用。</p>
+    <br>
     <div class="grid">
       <p>工具作者</p><a href="https://im0o.top" target="_blank">0o酱</a>
       <p>开源地址</p><a href="https://github.com/jz0ojiang/go-maimai-player-counter" target="_blank">Github</a>
     </div>
-    <p>API 使用请联系作者 <a href="mailto:hi@im0o.top">Email</a></p>
-    <p>广告位招租/赞助通道：<a href="javascript:alert('还没做这功能，欢迎直接联系作者投喂')">施工中</a></p>
+    <div class="grid">
+      <p>API 使用请联系</p><a href="mailto:hi@im0o.top">Email</a>
+      <p>赞助通道</p><a href="javascript:alert('还没做这功能，欢迎直接联系作者投喂')">施工中</a>
+    </div>
+    <Busuanzi />
   </div>
 </template>
 
 <style lang="scss" scoped>
+img {
+  width: 400px;
+  max-width: 100%;
+  margin: 2vh 0;
+}
+.town-block {
+  background: #fff url(/back_town_01.png) bottom no-repeat;
+  background-size: 485px;
+  box-shadow: 1px 3px 0px rgba(0, 0, 0, 0.4);
+  border-radius: 5px;
+}
+.card-container {
+  box-shadow: 0 0 0 2px #2e94f4, 0 0 0 6px #fff, 1px 8px 8px rgba(0, 0, 0, 0.2),
+    0 12px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  border-radius: 10px;
+  width: 400px;
+  max-width: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .footer {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-self: center;
   text-align: center;
+  margin-bottom: 5vh;
+  * {
+    color: #333;
+  }
   .grid {
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(2, 2fr 1fr);
-    text-align: left;
+    gap: 5px;
   }
   p {
-    color: #fff;
     font-size: 14px;
     margin: 0;
     padding: 0;
