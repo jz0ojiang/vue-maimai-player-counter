@@ -237,7 +237,7 @@ watch(currentPage, handlePageChange);
         <n-flex justify="center" class="pagination-box">
           <h2 v-if="searchText != '' && searchArcades.length == 0">暂无更多数据</h2>
           <n-pagination
-            v-if="showArcades.length >= 5 || searchArcades.length >= 5"
+            v-if="(arcades.length >= 5 && searchArcades.length == 0) || searchArcades.length >= 5"
             v-model:page="currentPage"
             :page-count="pageCount"
           />
