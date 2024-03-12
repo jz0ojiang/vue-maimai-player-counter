@@ -48,10 +48,10 @@ devDependencies:
     version: 18.19.3
   '@vitejs/plugin-vue':
     specifier: ^4.5.2
-    version: 4.6.0(vite@5.0.10)(vue@3.3.13)
+    version: 4.6.0(vite@5.0.12)(vue@3.3.13)
   '@vitejs/plugin-vue-jsx':
     specifier: ^3.1.0
-    version: 3.1.0(vite@5.0.10)(vue@3.3.13)
+    version: 3.1.0(vite@5.0.12)(vue@3.3.13)
   '@vue/tsconfig':
     specifier: ^0.5.0
     version: 0.5.1
@@ -62,8 +62,8 @@ devDependencies:
     specifier: ~5.3.0
     version: 5.3.3
   vite:
-    specifier: ^5.0.10
-    version: 5.0.10(@types/node@18.19.3)(sass@1.69.5)
+    specifier: ^5.0.12
+    version: 5.0.12(@types/node@18.19.3)(sass@1.69.5)
   vue-tsc:
     specifier: ^1.8.25
     version: 1.8.27(typescript@5.3.3)
@@ -846,7 +846,7 @@ packages:
       vue: 3.3.13(typescript@5.3.3)
     dev: false
 
-  /@vitejs/plugin-vue-jsx@3.1.0(vite@5.0.10)(vue@3.3.13):
+  /@vitejs/plugin-vue-jsx@3.1.0(vite@5.0.12)(vue@3.3.13):
     resolution: {integrity: sha512-w9M6F3LSEU5kszVb9An2/MmXNxocAnUb3WhRr8bHlimhDrXNt6n6D2nJQR3UXpGlZHh/EsgouOHCsM8V3Ln+WA==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
@@ -856,20 +856,20 @@ packages:
       '@babel/core': 7.23.6
       '@babel/plugin-transform-typescript': 7.23.6(@babel/core@7.23.6)
       '@vue/babel-plugin-jsx': 1.1.5(@babel/core@7.23.6)
-      vite: 5.0.10(@types/node@18.19.3)(sass@1.69.5)
+      vite: 5.0.12(@types/node@18.19.3)(sass@1.69.5)
       vue: 3.3.13(typescript@5.3.3)
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /@vitejs/plugin-vue@4.6.0(vite@5.0.10)(vue@3.3.13):
+  /@vitejs/plugin-vue@4.6.0(vite@5.0.12)(vue@3.3.13):
     resolution: {integrity: sha512-XHuyFdAikWRmHuAd89FOyUGIjrBU5KlxJtyi2hVeR9ySGFxQwE0bl5xAQju/ArMq5azdBivY4d+D2yPKwoYWUg==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       vite: ^4.0.0 || ^5.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 5.0.10(@types/node@18.19.3)(sass@1.69.5)
+      vite: 5.0.12(@types/node@18.19.3)(sass@1.69.5)
       vue: 3.3.13(typescript@5.3.3)
     dev: true
 
@@ -1992,8 +1992,8 @@ packages:
       vue: 3.3.13(typescript@5.3.3)
     dev: false
 
-  /vite@5.0.10(@types/node@18.19.3)(sass@1.69.5):
-    resolution: {integrity: sha512-2P8J7WWgmc355HUMlFrwofacvr98DAjoE52BfdbwQtyLH06XKwaL/FMnmKM2crF0iX4MpmMKoDlNCB1ok7zHCw==}
+  /vite@5.0.12(@types/node@18.19.3)(sass@1.69.5):
+    resolution: {integrity: sha512-4hsnEkG3q0N4Tzf1+t6NdN9dg/L3BM+q8SWgbSPnJvrgH2kgdyzfVJwbR1ic69/4uMJJ/3dqDZZE5/WwqW8U1w==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
