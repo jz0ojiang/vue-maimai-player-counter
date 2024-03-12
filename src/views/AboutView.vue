@@ -16,9 +16,13 @@ const handleBack = () => {
       <Header />
     </div>
     <div class="main">
-      <div class="card-container town_block">
+      <div class="mai-card card-container town_block">
         <h3>关于本站</h3>
-        <p>这是内容</p>
+        <div class="center">
+          <p>工具作者 <a target="_blank" href="https://im0o.top">0o酱</a> &nbsp; API 使用请联系 <a target="_blank" href="mailto:hi@im0o.top">Email</a></p>
+          <p>前端开源 <a target="_blank" href="https://github.com/jz0ojiang/maimai-player-counter">Github - maimai-player-counter</a></p>
+          <p>后端开源 <a target="_blank" href="https://github.com/jz0ojiang/go-maimai-player-counter">Github - go-maimai-player-counter</a></p>
+        </div>
       </div>
     </div>
     <div class="mpc_back_btn">
@@ -28,23 +32,30 @@ const handleBack = () => {
 </template>
 
 <style lang="scss" scoped>
-.town_block {
-  background: #fff url(/back_town_01.png) bottom no-repeat;
-  background-size: 485px;
-  box-shadow: 1px 3px 0px rgba(0, 0, 0, 0.4);
-  border-radius: 5px;
+a {
+  color: #fa8e53;
+  font-weight: 600;
+  text-decoration: none;
 }
-.card-container {
-  box-shadow: 0 0 0 2px #2e94f4, 0 0 0 6px #fff, 1px 8px 8px rgba(0, 0, 0, 0.2),
-    0 12px rgba(0, 0, 0, 0.2);
-  background-color: #fff;
-  border-radius: 10px;
-  min-width: 400px;
-  padding: 10px;
+a:hover {
+  color: #f9a77c;
+}
+.center {
+  margin-top: 5vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.card-container {
+  width: 400px;
+}
+
+@media screen and (max-width: 726px) {
+  .card-container {
+    width: 92vw;
+    margin: 0 auto;
+  }
 }
 .container {
   display: flex;
