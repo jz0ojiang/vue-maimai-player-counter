@@ -5,7 +5,7 @@ import chara01 from "@/assets/chara_01.png";
 import btnBack from "@/assets/btn_back.png";
 
 import axios, { AxiosError } from "axios";
-import { ref, onBeforeMount } from "vue";
+import { ref, onBeforeMount, watch } from "vue";
 import { useRouter } from "vue-router";
 import { useLoadingBar } from "naive-ui";
 
@@ -16,6 +16,10 @@ const route = useRouter();
 const city = ref({} as any);
 const province = ref({} as any);
 const arcades = ref([] as any);
+const showArcades = ref([] as any);
+const searchArcades = ref([] as any);
+const currentPage = ref(1);
+const pageCount = ref(1);
 const counts = ref({} as any);
 const total = ref(0);
 
@@ -29,6 +33,7 @@ const getCount = (arcade_id: number) => {
 onBeforeMount(async () => {
   loadingbar.start();
   try {
+    // 获取城市数据
     let res = await axios.get(
       "https://mpc.im0o.cn/getCity/" + route.currentRoute.value.params.city
     );
@@ -48,6 +53,7 @@ onBeforeMount(async () => {
       return;
     }
 
+    // 获取省市信息
     city.value = res.data.data;
     {
       let { data } = await axios.get("https://mpc.im0o.cn/getProvinceList");
@@ -55,11 +61,19 @@ onBeforeMount(async () => {
         (item: any) => item.code === city.value.province_code
       );
     }
+
+    // 获取机厅数据
     {
       let { data } = await axios.get(
         "https://mpc.im0o.cn/getArcadeList/city/" + city.value.code
       );
       arcades.value = data.data;
+      if (arcades.value.length > 5) {
+        showArcades.value = arcades.value.slice(0, 5);
+        pageCount.value = Math.ceil(arcades.value.length / 5);
+      } else {
+        showArcades.value = arcades.value;
+      }
     }
     {
       let { data } = await axios.get(
@@ -75,7 +89,9 @@ onBeforeMount(async () => {
     loading.value = false;
     loadingbar.finish();
   } catch (err) {
-    if (((err as AxiosError).response?.data as any).message == "no arcade found") {
+    if (
+      ((err as AxiosError).response?.data as any).message == "no arcade found"
+    ) {
       error.value = false;
       loading.value = false;
       loadingbar.error();
@@ -99,13 +115,50 @@ const handleToUpdate = (arcade_id: number) => {
       city_code: arcade.city.code,
     },
   });
-}
+};
 
 const handleToArcade = (arcade_id: number) => {
   route.push({
     path: "/arcade/" + arcade_id,
-  })
-}
+  });
+};
+
+const searchText = ref("");
+
+const handleSearch = () => {
+  if (searchText.value == "") {
+    searchArcades.value = [];
+    showArcades.value = arcades.value.slice(0, 5);
+    pageCount.value = Math.ceil(arcades.value.length / 5);
+    return;
+  }
+  searchArcades.value = arcades.value.filter((arcade: any) => {
+    return arcade.arcade_name.includes(searchText.value);
+  });
+  if (searchArcades.value.length > 5) {
+    showArcades.value = searchArcades.value.slice(0, 5);
+    pageCount.value = Math.ceil(searchArcades.value.length / 5);
+  } else {
+    showArcades.value = searchArcades.value;
+  }
+  currentPage.value = 1;
+};
+
+const handlePageChange = () => {
+  if (searchArcades.value.length > 0) {
+    showArcades.value = searchArcades.value.slice(
+      (currentPage.value - 1) * 5,
+      currentPage.value * 5
+    );
+    return;
+  }
+  showArcades.value = arcades.value.slice(
+    (currentPage.value - 1) * 5,
+    currentPage.value * 5
+  );
+};
+
+watch(currentPage, handlePageChange);
 </script>
 
 <template>
@@ -114,44 +167,81 @@ const handleToArcade = (arcade_id: number) => {
       <img :src="titleError" draggable="false" v-cloak v-if="error" />
       <img :src="titleMpc" draggable="false" v-cloak v-else />
     </div>
-    <div class="card-container town_block error-container" v-if="error">
+    <div
+      class="mai-card card-container town_block error-container"
+      v-if="error"
+    >
       <h3>出现了错误</h3>
       <div class="content error-content">
         <img :src="chara01" alt="" draggable="false" />
         <p>获取城市数据失败</p>
       </div>
     </div>
-    <div class="card-container town_block" v-else>
+    <div class="mai-card card-container town_block" v-else>
       <h3>{{ province.name }} - {{ city.name }}</h3>
       <p>当前城市共有 {{ total }} 人在出勤</p>
       <span>点击机厅名称即可查看详情</span>
       <div class="content">
-        <n-table :bordered="false" :single-line="false" v-if="arcades.length > 0">
-        <thead>
-          <tr>
-            <th>机厅名称</th>
-            <th>机台数量</th>
-            <th>人数</th>
-            <th>操作</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="arcade in arcades">
-            <td @click="handleToArcade(arcade.arcade_id)">{{ arcade.arcade_name }}</td>
-            <td>{{ arcade.machine_count }}</td>
-            <td>{{ getCount(arcade.arcade_id) == -1 ? "获取失败" : getCount(arcade.arcade_id) }}</td>
-            <td>
-              <n-button strong secondary type="primary" size="small" @click="handleToUpdate(arcade.arcade_id)">
-                更新
-              </n-button>
-            </td>
-          </tr>
-        </tbody>
-      </n-table>
-      <div v-else class="error-content">
-        <img :src="chara01" alt="" draggable="false" />
-        <p>当前城市没有舞萌</p>
-      </div>
+        <n-flex justify="center" v-if="arcades.length >= 5" class="search-box">
+          <n-input
+            v-model:value="searchText"
+            placeholder="搜索机厅"
+            class="search-input"
+            @input="handleSearch"
+          ></n-input>
+        </n-flex>
+        <n-table
+          :bordered="false"
+          :single-line="false"
+          v-if="arcades.length > 0"
+        >
+          <thead>
+            <tr>
+              <th>机厅名称</th>
+              <th>机台数量</th>
+              <th>人数</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="arcade in showArcades">
+              <td @click="handleToArcade(arcade.arcade_id)">
+                {{ arcade.arcade_name }}
+              </td>
+              <td>{{ arcade.machine_count }}</td>
+              <td>
+                {{
+                  getCount(arcade.arcade_id) == -1
+                    ? "获取失败"
+                    : getCount(arcade.arcade_id)
+                }}
+              </td>
+              <td>
+                <n-button
+                  strong
+                  secondary
+                  type="primary"
+                  size="small"
+                  @click="handleToUpdate(arcade.arcade_id)"
+                >
+                  更新
+                </n-button>
+              </td>
+            </tr>
+          </tbody>
+        </n-table>
+        <div v-else class="error-content">
+          <img :src="chara01" alt="" draggable="false" />
+          <p>当前城市没有舞萌</p>
+        </div>
+        <n-flex justify="center" class="pagination-box">
+          <h2 v-if="searchText != '' && searchArcades.length == 0">暂无更多数据</h2>
+          <n-pagination
+            v-if="showArcades.length >= 5 || searchArcades.length >= 5"
+            v-model:page="currentPage"
+            :page-count="pageCount"
+          />
+        </n-flex>
       </div>
     </div>
   </div>
@@ -161,10 +251,6 @@ const handleToArcade = (arcade_id: number) => {
 </template>
 
 <style lang="scss" scoped>
-.error-container {
-  box-shadow: 0 0 0 2px #ff6a6a, 0 0 0 6px #fff, 1px 8px 8px rgba(0, 0, 0, 0.2),
-    0 12px rgba(0, 0, 0, 0.2) !important;
-}
 .mpc_back_btn {
   margin-top: 30px;
   width: 100%;
@@ -185,32 +271,19 @@ const handleToArcade = (arcade_id: number) => {
   }
 }
 
-@media screen and (max-width: 726px) {
-  .pc {
-    display: none !important;
-  }
-  .mobile {
-    display: block !important;
+.search-box {
+  margin-bottom: 20px;
+  .search-input {
+    width: 70%;
+    padding: 2px;
   }
 }
 
-.town_block {
-  background: #fff url(/back_town_01.png) bottom no-repeat;
-  background-size: 485px;
-  box-shadow: 1px 3px 0px rgba(0, 0, 0, 0.4);
-  border-radius: 5px;
+.pagination-box {
+  margin-top: 20px;
 }
+
 .card-container {
-  box-shadow: 0 0 0 2px #2e94f4, 0 0 0 6px #fff, 1px 8px 8px rgba(0, 0, 0, 0.2),
-    0 12px rgba(0, 0, 0, 0.2);
-  background-color: #fff;
-  border-radius: 10px;
-  min-width: 400px;
-  padding: 10px 0 80px 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   span {
     font-size: 14px;
     color: #999;
@@ -243,7 +316,6 @@ const handleToArcade = (arcade_id: number) => {
       margin: 0;
       align-self: center;
     }
-
   }
   .content {
     margin-top: 20px;
@@ -279,6 +351,15 @@ const handleToArcade = (arcade_id: number) => {
         }
       }
     }
+  }
+}
+
+@media screen and (max-width: 726px) {
+  .pc {
+    display: none !important;
+  }
+  .mobile {
+    display: block !important;
   }
 }
 </style>

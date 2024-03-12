@@ -83,14 +83,14 @@ const getTime = (time: string) => {
       <img :src="titleError" draggable="false" v-cloak v-if="error" />
       <img :src="titleMpc" draggable="false" v-cloak v-else />
     </div>
-    <div class="card-container town_block error-container" v-if="error">
+    <div class="mai-card card-container town_block error-container" v-if="error">
       <h2>出现了错误</h2>
       <div class="content error-content">
         <img :src="chara01" alt="" draggable="false" />
         <p>获取机厅数据失败</p>
       </div>
     </div>
-    <div class="card-container town_block" v-else>
+    <div class="mai-card card-container town_block" v-else>
       <h2>{{ arcade.arcade_name }}</h2>
       <div class="content">
         <div class="item">
@@ -153,23 +153,8 @@ const getTime = (time: string) => {
   }
 }
 
-.town_block {
-  background: #fff url(/back_town_01.png) bottom no-repeat;
-  background-size: 485px;
-  box-shadow: 1px 3px 0px rgba(0, 0, 0, 0.4);
-  border-radius: 5px;
-}
 .card-container {
-  box-shadow: 0 0 0 2px #2e94f4, 0 0 0 6px #fff, 1px 8px 8px rgba(0, 0, 0, 0.2),
-    0 12px rgba(0, 0, 0, 0.2);
-  background-color: #fff;
-  border-radius: 10px;
-  min-width: 400px;
   padding: 10px 20px 80px 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   .error-content {
     display: flex;
     flex-direction: column;

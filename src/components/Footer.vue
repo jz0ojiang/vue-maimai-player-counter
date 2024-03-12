@@ -5,7 +5,7 @@ import line02 from '@/assets/line_02.png';
 </script>
 <template>
   <img :src="line02" alt="line" />
-  <div class="footer card-container town-block">
+  <div class="footer mai-card card-container town_block">
     <p>"maimai DX"及舞萌DX图标素材属于舞萌DX</p>
     <p>（世嘉互动有限公司），仅用于展示和非商业目的使用。</p>
     <br>
@@ -32,24 +32,10 @@ img {
   max-width: 100%;
   margin: 2vh 0;
 }
-.town-block {
-  background: #fff url(/back_town_01.png) bottom no-repeat;
-  background-size: 485px;
-  box-shadow: 1px 3px 0px rgba(0, 0, 0, 0.4);
-  border-radius: 5px;
-}
 .card-container {
-  box-shadow: 0 0 0 2px #2e94f4, 0 0 0 6px #fff, 1px 8px 8px rgba(0, 0, 0, 0.2),
-    0 12px rgba(0, 0, 0, 0.2);
-  background-color: #fff;
-  border-radius: 10px;
+  padding: 10px;
   width: 400px;
   max-width: 100%;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 .footer {
   display: flex;

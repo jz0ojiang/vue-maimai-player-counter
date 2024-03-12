@@ -74,7 +74,7 @@ const handleToUpdate = () => {
   <div class="title">
     <img :src="titleMpc" draggable="false" />
   </div>
-  <div class="card-container town_block">
+  <div class="mai-card card-container town_block">
     <h3>请选择区域</h3>
     <div class="content">
       <div class="pc item">
@@ -169,23 +169,8 @@ const handleToUpdate = () => {
   }
 }
 
-.town_block {
-  background: #fff url(/back_town_01.png) bottom no-repeat;
-  background-size: 485px;
-  box-shadow: 1px 3px 0px rgba(0, 0, 0, 0.4);
-  border-radius: 5px;
-}
 .card-container {
-  box-shadow: 0 0 0 2px #2e94f4, 0 0 0 6px #fff, 1px 8px 8px rgba(0, 0, 0, 0.2),
-    0 12px rgba(0, 0, 0, 0.2);
-  background-color: #fff;
-  border-radius: 10px;
-  min-width: 400px;
   padding: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   .mobile {
     display: none;
   }
