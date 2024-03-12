@@ -33,7 +33,7 @@
   #busuanzi_value_page_pv,
   #busuanzi_value_site_uv {
       color: #fa8e53;
-      font-weight: 500;
+      font-weight: 600;
       text-decoration: none;
   }
 </style>

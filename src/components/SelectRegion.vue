@@ -145,6 +145,7 @@ const handleToUpdate = () => {
   display: flex;
   justify-content: center;
   img {
+    cursor: pointer;
     width: 300px;
     object-fit: contain;
   }

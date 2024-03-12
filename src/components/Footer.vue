@@ -9,15 +9,20 @@ import line02 from '@/assets/line_02.png';
     <p>"maimai DX"及舞萌DX图标素材属于舞萌DX</p>
     <p>（世嘉互动有限公司），仅用于展示和非商业目的使用。</p>
     <br>
-    <div class="grid">
+    <!-- <div class="grid">
       <p>工具作者</p><a href="https://im0o.top" target="_blank">0o酱</a>
       <p>开源地址</p><a href="https://github.com/jz0ojiang/go-maimai-player-counter" target="_blank">Github</a>
     </div>
     <div class="grid">
       <p>API 使用请联系</p><a href="mailto:hi@im0o.top">Email</a>
       <p>赞助通道</p><a href="javascript:alert('还没做这功能，欢迎直接联系作者投喂')">施工中</a>
+    </div> -->
+    <div class="grid">
+      <p>交流群</p><a href="https://qm.qq.com/cgi-bin/qm/qr?k=6NbfbucxYkNLqFpLveEEJpdVeqLGz4Ni&jump_from=webapi&authKey=NZ525vWAGLayUqy71gHa2ApASx5yhqc2xamWCVLi7MsNSSQg4qBSQIIoluwcQuQV" target="_blank">836503107</a>
+      <p>爱发电</p><a href="https://afdian.net/@jz0ojiang">投喂</a>
     </div>
     <Busuanzi />
+    <RouterLink to="/about">关于本站</RouterLink>
   </div>
 </template>
 
@@ -59,7 +64,7 @@ img {
   .grid {
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(2, 2fr 1fr);
+    grid-template-columns: repeat(2, 3fr 2fr);
     gap: 5px;
   }
   p {
@@ -69,7 +74,7 @@ img {
   }
   a {
     color: #fa8e53;
-    font-weight: 500;
+    font-weight: 600;
     text-decoration: none;
   }
   a:hover {

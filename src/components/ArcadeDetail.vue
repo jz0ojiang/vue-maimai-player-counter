@@ -2,7 +2,6 @@
 import titleError from "@/assets/title_error.png";
 import titleMpc from "@/assets/title_mpc.png";
 import chara01 from "@/assets/chara_01.png";
-import btnBack from "@/assets/btn_back.png";
 
 import axios from "axios";
 import { ref, onBeforeMount } from "vue";
@@ -42,9 +41,7 @@ onBeforeMount(async () => {
     loadingbar.error();
   }
 });
-const handleBack = () => {
-  route.back();
-};
+
 const handleToUpdate = () => {
   route.push({
     path: "/update",
@@ -138,9 +135,6 @@ const getTime = (time: string) => {
       </div>
     </div>
   </div>
-  <div class="mpc_back_btn">
-    <img :src="btnBack" alt="" @click="handleBack" />
-  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -148,16 +142,7 @@ const getTime = (time: string) => {
   box-shadow: 0 0 0 2px #ff6a6a, 0 0 0 6px #fff, 1px 8px 8px rgba(0, 0, 0, 0.2),
     0 12px rgba(0, 0, 0, 0.2) !important;
 }
-.mpc_back_btn {
-  margin-top: 30px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  img {
-    width: 100px;
-    object-fit: contain;
-  }
-}
+
 .title {
   height: 45px;
   margin-bottom: 30px;

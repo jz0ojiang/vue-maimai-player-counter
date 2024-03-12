@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import btnSubmit from "@/assets/btn_submit.png";
-import titleMpc from "@/assets/title_mpc_update.png";
-import btnBack from "@/assets/btn_back.png";
 
 import axios from "axios";
 import { watch, ref, onMounted } from "vue";
@@ -147,10 +145,6 @@ watch(selectArcade, () => {
   getPlayerCount();
 });
 
-const handleBack = () => {
-  route.back();
-};
-
 const lock = ref(false);
 
 
@@ -191,9 +185,6 @@ presetquery()
 </script>
 
 <template>
-  <div class="title">
-    <img :src="titleMpc" draggable="false" />
-  </div>
   <div class="card-container town_block">
     <h3>请选择区域</h3>
     <div class="content">
@@ -299,32 +290,9 @@ presetquery()
       </div>
     </div>
   </div>
-  <div class="mpc_back_btn">
-    <img :src="btnBack" alt="" @click="handleBack" />
-  </div>
 </template>
 
 <style lang="scss" scoped>
-.mpc_back_btn {
-  margin-top: 30px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  img {
-    width: 100px;
-    object-fit: contain;
-  }
-}
-.title {
-  height: 45px;
-  margin-bottom: 30px;
-  padding: 1px;
-  img {
-    height: 100%;
-    width: 100%;
-    object-fit: contain;
-  }
-}
 
 @media screen and (max-width: 726px) {
   .pc {
